@@ -7,9 +7,11 @@ export const RefForm = () => {
 
   const [emailErrors, setEmailErrors] = useState([])
   const [passwordErrors, setPasswordErrors] = useState([])
+  const [isAfterFirstSubmit, setIsAfterFirstSubmit] = useState(false)
 
   const onSubmit = (e) => {
     e.preventDefault()
+    setIsAfterFirstSubmit(true)
 
     const emailResults = checkEmail(emailRef.current.value)
     const passwordResults = checkPassword(passwordRef.current.value)
@@ -28,7 +30,17 @@ export const RefForm = () => {
         <label className='label' htmlFor='email'>
           Email
         </label>
-        <input className='input' type='email' id='email' ref={emailRef} />
+        <input
+          onChange={
+            isAfterFirstSubmit
+              ? (e) => setEmailErrors(checkEmail(e.target.value))
+              : undefined
+          }
+          className='input'
+          type='email'
+          id='email'
+          ref={emailRef}
+        />
         {emailErrors.length > 0 && (
           <div className='msg'>{emailErrors.join(', ')}</div>
         )}
@@ -38,6 +50,11 @@ export const RefForm = () => {
           Password
         </label>
         <input
+          onChange={
+            isAfterFirstSubmit
+              ? (e) => setPasswordErrors(checkPassword(e.target.value))
+              : undefined
+          }
           className='input'
           ref={passwordRef}
           type='password'
