@@ -1,21 +1,25 @@
-import { useState } from 'react'
+import { useMemo, useState } from 'react'
 import { checkEmail, checkPassword } from './validators'
 
 export const StateForm = () => {
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
 
-  const [emailErrors, setEmailErrors] = useState([])
-  const [passwordErrors, setPasswordErrors] = useState([])
+  const [isAfterFirstSubmit, setIsAfterFirstSubmit] = useState(false)
+
+  const emailErrors = useMemo(() => {
+    return isAfterFirstSubmit ? checkEmail(email) : []
+  }, [isAfterFirstSubmit, email])
+  const passwordErrors = useMemo(() => {
+    return isAfterFirstSubmit ? checkPassword(password) : []
+  }, [isAfterFirstSubmit, password])
 
   const onSubmit = (e) => {
     e.preventDefault()
+    setIsAfterFirstSubmit(true)
 
     const emailResults = checkEmail(email)
     const passwordResults = checkPassword(password)
-
-    setEmailErrors(emailResults)
-    setPasswordErrors(passwordResults)
 
     if (emailResults.length === 0 && passwordResults.length === 0) {
       alert('Success')
