@@ -1,6 +1,6 @@
-import { StateForm } from './StateForm'
+import { RefForm } from './RefForm'
 import './styles.css'
 
 export default function App() {
-  return <StateForm />
+  return <RefForm />
 }

@@ -17,7 +17,7 @@ export const StateForm = () => {
     setEmailErrors(emailResults)
     setPasswordErrors(passwordResults)
 
-    if (emailResults.length === 0 && passwordErrors.length === 0) {
+    if (emailResults.length === 0 && passwordResults.length === 0) {
       alert('Success')
     }
   }
