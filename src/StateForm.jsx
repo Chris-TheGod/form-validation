@@ -13,7 +13,7 @@ export const StateForm = () => {
 
   return (
     <form onSubmit={onSubmit} className='form'>
-      <div className='form-group error'>
+      <div className={`form-group ${emailErrors.length > 0 ? 'error' : ''}`}>
         <label className='label' htmlFor='email'>
           Email
         </label>
@@ -28,7 +28,7 @@ export const StateForm = () => {
           <div className='msg'>{emailErrors.join(', ')}</div>
         )}
       </div>
-      <div className='form-group'>
+      <div className={`form-group ${passwordErrors.length > 0 ? 'error' : ''}`}>
         <label className='label' htmlFor='password'>
           Password
         </label>
@@ -39,6 +39,9 @@ export const StateForm = () => {
           type='password'
           id='password'
         />
+        {passwordErrors.length > 0 && (
+          <div className='msg'>{passwordErrors.join(', ')}</div>
+        )}
       </div>
       <button className='btn' type='submit'>
         Submit
